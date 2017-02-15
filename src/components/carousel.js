@@ -22,8 +22,10 @@ class Carousel extends Component {
     window.addEventListener('blur', () => {
       clearInterval(this.timer);
     },false);
+
   }
 
+  initialized = false;
   currentSlide = 1;
   timer = null;
 
@@ -38,12 +40,27 @@ class Carousel extends Component {
     var amount = 0; 
     if (this.currentSlide === 1) amount = "-100%";
     if (this.currentSlide === 2) amount = "-200%"
-    if (this.currentSlide === 3) amount = "0%";
+    if (this.currentSlide === 3) amount = "-300%";
     this.move(amount);
     this.currentSlide++;
-    if (this.currentSlide > 3) this.currentSlide = 1;
-    this.updateDots();
+    //this.updateDots();
   }
+
+  transitionDone() {
+    console.log('done');
+    var el = this.refs.carousel;
+    if (this.currentSlide > 3) {
+      this.currentSlide = 1;
+      el.childNodes[0].childNodes.forEach(node => {
+        node.style.transition = "transform 0.0001s";
+        node.style.transform = "translate(0px, 0px)"
+      });
+    } else {
+      el.childNodes[0].childNodes.forEach(node => {
+        node.style.transition = "transform 1s";
+      });
+    }
+  };
 
   moveBackward() {
     var amount = 0; 
@@ -53,11 +70,34 @@ class Carousel extends Component {
     this.move(amount);
     this.currentSlide--;
     if (this.currentSlide < 1) this.currentSlide = 3;
-    this.updateDots();
+    //this.updateDots();
   }
 
   move(amount) {
+
+    function whichTransitionEvent(){
+      var t;
+      var el = document.createElement('fakeelement');
+      var transitions = {
+        'transition':'transitionend',
+        'OTransition':'oTransitionEnd',
+        'MozTransition':'transitionend',
+        'WebkitTransition':'webkitTransitionEnd'
+      }
+
+      for(t in transitions){
+          if( el.style[t] !== undefined ){
+              return transitions[t];
+          }
+      }
+    }
+
     var el = this.refs.carousel;
+    var transitionEnd = whichTransitionEvent();
+    if (!this.initialized) {
+      el.childNodes[0].childNodes[0].addEventListener(transitionEnd, () => this.transitionDone(), false);
+      this.initialized = true;
+    }
     el.childNodes[0].childNodes.forEach(node => {
       node.style.transform = "translate(" + amount + ", 0px)"
     });
@@ -133,6 +173,7 @@ class Carousel extends Component {
             <Slide model={text[0]}></Slide>
             <Slide model={text[1]}></Slide>
             <Slide model={text[2]}></Slide>
+            <Slide model={text[0]}></Slide>
           </div>
           <div className="dots">
             <span className="dot1 active">&#9899;</span>
