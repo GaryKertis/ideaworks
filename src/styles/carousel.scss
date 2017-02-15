@@ -11,11 +11,17 @@ $screen-md-max: ($screen-lg-min - 1);
         height: 579px;
         padding-bottom: 0px;
     }
+    .carousel {
+        overflow: visible;
+    }
 }
 
 @media (max-width: $screen-sm-max) {
     .carousel {
         margin-top: 50px;
+    }
+    .carousel {
+        overflow: visible;
     }
 }
 

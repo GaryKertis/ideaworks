@@ -28,10 +28,10 @@ class Carousel extends Component {
   timer = null;
 
   startTimer() {
-    // clearInterval(this.timer);
-    // this.timer = setInterval(() => {
-    //   this.moveForward();
-    // }, 5000)
+    clearInterval(this.timer);
+    this.timer = setInterval(() => {
+      this.moveForward();
+    }, 5000)
   }
 
   moveForward() {
