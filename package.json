@@ -2,12 +2,10 @@
   "name": "ideaworks",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
+  "dependencies": {
     "node-sass": "^4.5.0",
     "npm-run-all": "^4.0.1",
-    "react-scripts": "0.9.0"
-  },
-  "dependencies": {
+    "react-scripts": "0.9.0",
     "dateformat": "^2.0.0",
     "random-words": "0.0.1",
     "react": "^15.4.2",

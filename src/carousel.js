@@ -11,6 +11,8 @@ class Carousel extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleTouchMove = this.handleTouchMove.bind(this);
     this.startTimer();
 
     window.addEventListener('focus', () => {
@@ -22,46 +24,63 @@ class Carousel extends Component {
     },false);
   }
 
-  clicks = 1;
+  currentSlide = 1;
   timer = null;
 
   startTimer() {
-    console.log('start');
-    this.timer = setInterval(() => {
-      this.moveOne();
-    }, 5000)
+    // clearInterval(this.timer);
+    // this.timer = setInterval(() => {
+    //   this.moveForward();
+    // }, 5000)
   }
 
-  moveOne() {
-    var el = this.refs.carousel;
-    var amount = -100 * this.clicks + "%";
+  moveForward() {
+    var amount = 0; 
+    if (this.currentSlide === 1) amount = "-100%";
+    if (this.currentSlide === 2) amount = "-200%"
+    if (this.currentSlide === 3) amount = "0%";
+    this.move(amount);
+    this.currentSlide++;
+    if (this.currentSlide > 3) this.currentSlide = 1;
+    this.updateDots();
+  }
 
+  moveBackward() {
+    var amount = 0; 
+    if (this.currentSlide === 1) amount = "-200%";
+    if (this.currentSlide === 2) amount = "0%"
+    if (this.currentSlide === 3) amount = "-100%";
+    this.move(amount);
+    this.currentSlide--;
+    if (this.currentSlide < 1) this.currentSlide = 3;
+    this.updateDots();
+  }
+
+  move(amount) {
+    var el = this.refs.carousel;
     el.childNodes[0].childNodes.forEach(node => {
       node.style.transform = "translate(" + amount + ", 0px)"
     });
+  }
 
+  updateDots() {
+    var el = this.refs.carousel;
     var dots = el.childNodes[1].childNodes;
-
     dots.forEach(node => {
       node.className = node.className.replace(/active\b/,'');
     });
-
-    dots[this.clicks].className += " active";
-
-    this.clicks++
-    if (this.clicks >= 3) this.clicks = 0;
+    dots[this.currentSlide - 1].className += " active";
   }
 
   handleClick(event) {
     event.preventDefault();
-    this.moveOne();
-    clearInterval(this.timer);
+    this.moveForward();
     this.startTimer();
   }
 
   xDown = null;                                                        
 
-  handleTouchStart(evt) {                                         
+  handleTouchStart(evt) {
       this.xDown = evt.touches[0].clientX;                                      
   };                                                
 
@@ -74,10 +93,12 @@ class Carousel extends Component {
       var xDiff = this.xDown - xUp;
         if ( xDiff > 0 ) {
             /* left swipe */ 
-            console.log('left');
+            this.moveForward();
+            this.startTimer();
         } else {
             /* right swipe */
-            console.log('right');
+            this.moveBackward();
+            this.startTimer();
         }                       
       /* reset values */
       this.xDown = null;

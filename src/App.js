@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import './styles/App.css';
 import Carousel from './carousel';
 import Header from './header';
+import Footer from './footer';
 import Grid from './grid';
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
         <Header></Header>
         <Carousel></Carousel>
         <Grid></Grid>
+        <Footer></Footer>
       </div>
     );
   }
