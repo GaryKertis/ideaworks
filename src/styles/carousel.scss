@@ -13,6 +13,12 @@ $screen-md-max: ($screen-lg-min - 1);
     }
 }
 
+@media (max-width: $screen-sm-max) {
+    .carousel {
+        margin-top: 50px;
+    }
+}
+
 .hero {
     width: inherit;
 }
@@ -29,8 +35,8 @@ $screen-md-max: ($screen-lg-min - 1);
 }
 
 .slides {
-	overflow: hidden;
-	margin: auto;
+    overflow: hidden;
+    margin: auto;
 }
 
 .dots {
@@ -48,11 +54,5 @@ $screen-md-max: ($screen-lg-min - 1);
 
     .active {
         opacity: 0.5;
-    }
-}
-
-@media (max-width: $screen-sm-max) {
-    .carousel {
-        margin-top: 50px;
     }
 }

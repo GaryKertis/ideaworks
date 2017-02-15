@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Slide from './slide';
-import hero1 from './images/hero1.jpg';
-import hero2 from './images/hero2.jpg';
-import hero3 from './images/hero3.jpg';
-import './styles/carousel.css';
+import hero1 from '../images/hero1.jpg';
+import hero2 from '../images/hero2.jpg';
+import hero3 from '../images/hero3.jpg';
+import '../styles/carousel.css';
 var randomWords = require('random-words');
 
 
@@ -81,10 +81,12 @@ class Carousel extends Component {
   xDown = null;                                                        
 
   handleTouchStart(evt) {
+      evt.preventDefault();
       this.xDown = evt.touches[0].clientX;                                      
   };                                                
 
   handleTouchMove(evt) {
+      evt.preventDefault();
       if ( ! this.xDown ) {
           return;
       }

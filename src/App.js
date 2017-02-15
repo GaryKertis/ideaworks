@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 // <img src={logo} className="App-logo" alt="logo" />
 
 import './styles/App.css';
-import Carousel from './carousel';
-import Header from './header';
-import Footer from './footer';
-import Grid from './grid';
+import Carousel from './components/carousel';
+import Header from './components/header';
+import Footer from './components/footer';
+import Grid from './components/grid';
 
 class App extends Component {
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './styles/slide.css';
+import '../styles/slide.css';
 var dateFormat = require("dateformat");
 
 class Slide extends Component {
