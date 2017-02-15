@@ -1,0 +1,56 @@
+$screen-sm-min: 500px;
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-md-min: 772px;
+$screen-sm-max: ($screen-md-min - 1);
+$screen-lg-min: 1200px;
+$screen-md-max: ($screen-lg-min - 1);
+
+@media (min-width: $screen-md-min) {
+    .slides {
+        max-width: 1440px;
+        height: 579px;
+        padding-bottom: 0px;
+    }
+}
+
+.hero {
+    width: inherit;
+}
+
+.carousel {
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+    white-space: nowrap;
+    max-width: 100%;
+    margin-top:80px;
+}
+
+.slides {
+	overflow: hidden;
+	margin: auto;
+}
+
+.dots {
+    width: 100%;
+    height: 30px;
+    background: white;
+    text-align: center;
+    font-size: 1.2em;
+
+    span {
+        padding-left: 10px;
+        opacity: 0.2;
+    }
+
+    .active {
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: $screen-sm-max) {
+    .carousel {
+        margin-top: 50px;
+    }
+}

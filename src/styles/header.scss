@@ -1,0 +1,80 @@
+$screen-sm-min: 500px;
+$screen-xxs-max: ($screen-sm-min - 1);
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-md-min: 772px;
+$screen-sm-max: ($screen-md-min - 1);
+$screen-lg-min: 1200px;
+$screen-md-max: ($screen-lg-min - 1);
+.logo {
+    width: 150px;
+    height: 50px;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-left: 100px;
+    float: left;
+}
+
+.appNav {
+    height: 50px;
+    margin-right: 100px;
+    line-height: 4;
+    font-family: 'Arial Bold';
+    font-weight: bold;
+    color: #767676;
+    font-size: 12px;
+    float: right;
+    text-align: right;
+}
+
+appNav:before {
+    content: '\2630';
+}
+
+.headerBody {
+    max-width: 1440px;
+    margin: auto;
+}
+
+.appNav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.appNav ul li {
+    display: inline;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.appNav ul li:last-child {
+    margin-right: 0px;
+}
+
+
+.appHeader {
+    height: 80px;
+    width: 100%;
+    padding: 15px;
+    position: fixed;
+    top: 0px;
+    background: white;
+    z-index: 100;
+    text-align: center;
+    min-width: 380px;
+    border-bottom: 1px solid #1A1A1A
+}
+
+@media (max-width: $screen-sm-max) {
+    .appHeader {
+        padding: 0px;
+        height: 50px
+    }
+    .logo {
+        margin-left: 5px;
+    }
+    .appNav {
+        margin-right: 5px;
+    }
+}

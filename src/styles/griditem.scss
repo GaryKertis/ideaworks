@@ -1,0 +1,28 @@
+.gridItem {
+	text-align: left;
+	line-height: 1;
+	overflow: hidden;
+}
+
+.gridItemTitle {
+	font-size: 50px;
+	margin-bottom: 30px;
+}
+
+.gridItemTitle {
+	a:active, a:visited, a:hover, a {
+		color: #1A1A1A;
+		font-family: "Springville-Regular3";
+	}
+}
+
+.gridItemDate {
+	font-family: 'Arial Bold';
+	font-size: 10px;
+	color: #767676;
+	padding: 30px 0px;
+}
+
+.gridItemSubTitle span {
+	text-decoration: underline;
+}
