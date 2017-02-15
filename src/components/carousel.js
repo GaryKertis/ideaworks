@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import Slide from './slide';
-import hero1 from '../images/hero1.jpg';
-import hero2 from '../images/hero2.jpg';
-import hero3 from '../images/hero3.jpg';
+import HeroContent from '../services/herocontent';
 import '../styles/carousel.css';
-var randomWords = require('random-words');
 
 
 class Carousel extends Component {
@@ -25,6 +22,8 @@ class Carousel extends Component {
 
   }
 
+  heroContent = new HeroContent();
+  xDown = null;                                                        
   initialized = false;
   currentSlide = 1;
   timer = null;
@@ -37,12 +36,31 @@ class Carousel extends Component {
     }, 5000)
   }
 
+  initCarousel() {
+    function whichTransitionEvent(){
+      var t;
+      var el = document.createElement('fakeelement');
+      var transitions = {
+        'transition':'transitionend',
+        'OTransition':'oTransitionEnd',
+        'MozTransition':'transitionend',
+        'WebkitTransition':'webkitTransitionEnd'
+      }
+
+      for(t in transitions){
+          if( el.style[t] !== undefined ){
+              return transitions[t];
+          }
+      }
+    }
+    var transitionEnd = whichTransitionEvent();
+    this.refs.carousel.childNodes[0].childNodes[0].addEventListener(transitionEnd, () => this.transitionDone(), false);
+    this.initialized = true;
+  }
+
   moveForward() {
     this.transitioning = true;
-    var amount = 0; 
-    if (this.currentSlide === 1) amount = "-100%";
-    if (this.currentSlide === 2) amount = "-200%"
-    if (this.currentSlide === 3) amount = "-300%";
+    var amount = this.currentSlide * -100 + "%";
     this.move(amount);
     this.currentSlide++;
     if (this.currentSlide > 3) {
@@ -52,23 +70,23 @@ class Carousel extends Component {
     this.updateDots();
   }
 
+  reset(amount) {
+      this.refs.carousel.childNodes[0].childNodes.forEach(node => {
+        node.style.transition = "transform 0.0001s";
+        node.style.transform = "translate(" + amount + ", 0px)"
+      });
+  }
+
   transitionDone() {
     this.transitioning = false;
-    var el = this.refs.carousel;
     if (this.forwardReset) {
-      el.childNodes[0].childNodes.forEach(node => {
-        node.style.transition = "transform 0.0001s";
-        node.style.transform = "translate(0px, 0px)"
-      });
+      this.reset("0px")
       this.forwardReset = false;
     } else if (this.backwardReset) {
-      el.childNodes[0].childNodes.forEach(node => {
-        node.style.transition = "transform 0.0001s";
-        node.style.transform = "translate(-200%, 0px)"
-      });
+      this.reset("-200%");
       this.backwardReset = false;
     } else {
-        el.childNodes[0].childNodes.forEach(node => {
+        this.refs.carousel.childNodes[0].childNodes.forEach(node => {
         node.style.transition = "transform 0.5s";
       });
     }
@@ -90,31 +108,8 @@ class Carousel extends Component {
   }
 
   move(amount) {
-
-    function whichTransitionEvent(){
-      var t;
-      var el = document.createElement('fakeelement');
-      var transitions = {
-        'transition':'transitionend',
-        'OTransition':'oTransitionEnd',
-        'MozTransition':'transitionend',
-        'WebkitTransition':'webkitTransitionEnd'
-      }
-
-      for(t in transitions){
-          if( el.style[t] !== undefined ){
-              return transitions[t];
-          }
-      }
-    }
-
-    var el = this.refs.carousel;
-    var transitionEnd = whichTransitionEvent();
-    if (!this.initialized) {
-      el.childNodes[0].childNodes[0].addEventListener(transitionEnd, () => this.transitionDone(), false);
-      this.initialized = true;
-    }
-    el.childNodes[0].childNodes.forEach(node => {
+    if (!this.initialized) this.initCarousel();
+    this.refs.carousel.childNodes[0].childNodes.forEach(node => {
       node.style.transform = "translate(" + amount + ", 0px)"
     });
   }
@@ -136,15 +131,11 @@ class Carousel extends Component {
     }
   }
 
-  xDown = null;                                                        
-
   handleTouchStart(evt) {
-      evt.preventDefault();
       this.xDown = evt.touches[0].clientX;                                      
   };                                                
 
   handleTouchMove(evt) {
-      evt.preventDefault();
       if ( ! this.xDown ) {
           return;
       }
@@ -169,26 +160,7 @@ class Carousel extends Component {
   };
 
   render() {
-    function randomDate(start, end) {
-        return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-    } 
-    var text = [];
-    var images = [hero1, hero2, hero3];
-    for (var i = 0; i < 3; i++) {
-      var title1 = randomWords(1).join(" ") + ":";
-      title1 = title1.charAt(0).toUpperCase() + title1.slice(1);
-      var title2 = randomWords({ min: 3, max: 5 }).join(" ") + ".";
-      title2 = title2.charAt(0).toUpperCase() + title2.slice(1);
-      var content = randomWords({ min: 15, max: 20 }).join(" ") + ".";
-      content = content.charAt(0).toUpperCase() + content.slice(1);
-      text.push({
-        image: images[i],
-        title1: title1,
-        title2: title2,
-        subTitle: randomDate(new Date(2017, 0, 1), new Date(2017, 12, 31)),
-        content: content
-      });
-    }
+    var text = this.heroContent.items;
     return (
       <div className="carousel" ref="carousel" onClick={this.handleClick} onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove}>
           <div className="slides">
