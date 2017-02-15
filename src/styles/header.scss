@@ -7,7 +7,7 @@ $screen-lg-min: 1200px;
 $screen-md-max: ($screen-lg-min - 1);
 .logo {
     width: 150px;
-    height: 50px;
+    height: 80px;
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: center center;
@@ -16,9 +16,9 @@ $screen-md-max: ($screen-lg-min - 1);
 }
 
 .appNav {
-    height: 50px;
+    height: 80px;
     margin-right: 100px;
-    line-height: 4;
+    line-height: 7;
     font-family: 'Arial Bold';
     font-weight: bold;
     color: #767676;
@@ -54,7 +54,7 @@ appNav:before {
 
 
 .appHeader {
-    height: 80px;
+    height: 110px;
     width: 100%;
     padding: 15px;
     position: fixed;
@@ -62,7 +62,7 @@ appNav:before {
     background: white;
     z-index: 100;
     text-align: center;
-    min-width: 380px;
+    min-width: 310px;
     border-bottom: 1px solid #1A1A1A
 }
 
@@ -72,9 +72,12 @@ appNav:before {
         height: 50px
     }
     .logo {
-        margin-left: 5px;
+        margin-left: 10px;
+        height: 50px;
     }
     .appNav {
-        margin-right: 5px;
+        margin-right: 10px;
+        height: 50px;
+        line-height: 4;
     }
 }

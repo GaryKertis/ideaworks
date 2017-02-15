@@ -1,11 +1,9 @@
 $screen-sm-min: 500px;
 $screen-xs-max: ($screen-sm-min - 1);
-$screen-md-min:	772px;
+$screen-md-min: 772px;
 $screen-sm-max: ($screen-md-min - 1);
 $screen-lg-min: 1200px;
 $screen-md-max: ($screen-lg-min - 1);
-
-
 .slide {
     margin: 0 auto;
     overflow: hidden;
@@ -24,24 +22,24 @@ $screen-md-max: ($screen-lg-min - 1);
     color: white;
     position: absolute;
     margin-left: 9%;
-    margin-bottom: 9%;
+    margin-bottom: 100px;
     bottom: 0px;
-    max-width: 50%;
     text-align: left;
     white-space: normal;
 }
 
-.slideSubHeader { 
+.slideSubHeader {
     padding: 25px 0px;
 }
 
-.slideContent, .slideSubHeader {
+.slideContent,
+.slideSubHeader {
     font-family: "ACaslonPro-Regular"
 }
 
 .slideContent {
     font-size: 1.2em;
-    max-width: 75%;
+    max-width: 50%;
 }
 
 @media (min-width: $screen-md-min) {
@@ -59,15 +57,17 @@ $screen-md-max: ($screen-lg-min - 1);
         background-position: top center;
         background-size: cover;
     }
+    .slideText {
+        margin-bottom: 9%;
+    }
     .slideText .slideHeader {
         font-size: 2em;
     }
     .slideText .slideSubHeader {
         font-size: 1em;
     }
-
     .slideText .slideContent {
-    	font-size: 0.5em;
+        font-size: 0.5em;
     }
 }
 
@@ -76,6 +76,9 @@ $screen-md-max: ($screen-lg-min - 1);
         padding-top: 75%;
         background-position: top center;
         background-size: cover;
+    }
+    .slideText {
+        margin-bottom: 9%;
     }
     .slideText .slideHeader {
         font-size: 3em;

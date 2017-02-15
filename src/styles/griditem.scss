@@ -1,28 +1,55 @@
+$screen-sm-min: 500px;
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-md-min: 772px;
+$screen-sm-max: ($screen-md-min - 1);
+$screen-lg-min: 1200px;
+$screen-md-max: ($screen-lg-min - 1);
 .gridItem {
-	text-align: left;
-	line-height: 1;
-	overflow: hidden;
+    text-align: left;
+    line-height: 1;
+    overflow: hidden;
 }
 
 .gridItemTitle {
-	font-size: 50px;
-	margin-bottom: 30px;
+    font-size: 50px;
+    margin-bottom: 30px;
 }
 
 .gridItemTitle {
-	a:active, a:visited, a:hover, a {
-		color: #1A1A1A;
-		font-family: "Springville-Regular3";
-	}
+    a:active,
+    a:visited,
+    a:hover,
+    a {
+        color: #1A1A1A;
+        font-family: "Springville-Regular3";
+    }
 }
 
 .gridItemDate {
-	font-family: 'Arial Bold';
-	font-size: 10px;
-	color: #767676;
-	padding: 30px 0px;
+    font-family: 'Arial Bold';
+    font-size: 10px;
+    color: #767676;
+    padding: 30px 0px;
 }
 
 .gridItemSubTitle span {
-	text-decoration: underline;
+    text-decoration: underline;
+}
+
+@media (max-width: $screen-xs-max) {
+    .gridItemTitle {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+    div[class^="col"]{padding-left:10px; padding-right:10px;}
+    div[class^="col"]:last-child{padding-left: 0px; padding-right:10px;}
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    .gridItemTitle {
+        font-size: 40px;
+        margin-bottom: 30px;
+    }
+    div[class^="col"]{padding-left:20px; padding-right:20px;}
+    div[class^="col"]:last-child{padding-left: 0px; padding-right:20px;}
 }

@@ -14,7 +14,7 @@ class Header extends Component {
           </div>
           <div className="appNav">
             <ul>
-              <li>212.555.5555</li>
+              <li className="hidden-xs">212.555.5555</li>
               <li>LOGIN</li>
               <li>&#9776;</li>
             </ul>

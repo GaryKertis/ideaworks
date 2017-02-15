@@ -24,6 +24,7 @@ $screen-md-max: ($screen-lg-min - 1);
     margin: auto;
     white-space: nowrap;
     max-width: 100%;
+    min-width: 320px;
     margin-top:80px;
 }
 
@@ -40,6 +41,7 @@ $screen-md-max: ($screen-lg-min - 1);
     font-size: 1.2em;
 
     span {
+        cursor: pointer;
         padding-left: 10px;
         opacity: 0.2;
     }

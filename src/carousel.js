@@ -11,13 +11,29 @@ class Carousel extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.startTimer();
+
+    window.addEventListener('focus', () => {
+      this.startTimer();
+    },false);
+
+    window.addEventListener('blur', () => {
+      clearInterval(this.timer);
+    },false);
   }
 
   clicks = 1;
+  timer = null;
 
-  handleClick(event) {
-    event.preventDefault();
-    var el = event.currentTarget;
+  startTimer() {
+    console.log('start');
+    this.timer = setInterval(() => {
+      this.moveOne();
+    }, 5000)
+  }
+
+  moveOne() {
+    var el = this.refs.carousel;
     var amount = -100 * this.clicks + "%";
 
     el.childNodes[0].childNodes.forEach(node => {
@@ -36,8 +52,36 @@ class Carousel extends Component {
     if (this.clicks >= 3) this.clicks = 0;
   }
 
+  handleClick(event) {
+    event.preventDefault();
+    this.moveOne();
+    clearInterval(this.timer);
+    this.startTimer();
+  }
 
+  xDown = null;                                                        
 
+  handleTouchStart(evt) {                                         
+      this.xDown = evt.touches[0].clientX;                                      
+  };                                                
+
+  handleTouchMove(evt) {
+      if ( ! this.xDown ) {
+          return;
+      }
+
+      var xUp = evt.touches[0].clientX;                                    
+      var xDiff = this.xDown - xUp;
+        if ( xDiff > 0 ) {
+            /* left swipe */ 
+            console.log('left');
+        } else {
+            /* right swipe */
+            console.log('right');
+        }                       
+      /* reset values */
+      this.xDown = null;
+  };
 
   render() {
     function randomDate(start, end) {
@@ -61,7 +105,7 @@ class Carousel extends Component {
       });
     }
     return (
-      <div className="carousel" onClick={this.handleClick}>
+      <div className="carousel" ref="carousel" onClick={this.handleClick} onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove}>
           <div className="slides">
             <Slide model={text[0]}></Slide>
             <Slide model={text[1]}></Slide>
