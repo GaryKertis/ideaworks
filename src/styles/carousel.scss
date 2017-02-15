@@ -12,16 +12,16 @@ $screen-md-max: ($screen-lg-min - 1);
         padding-bottom: 0px;
     }
     .carousel {
-        overflow: visible;
+        margin: auto;
+        margin-top: 80px;
+
     }
 }
 
 @media (max-width: $screen-sm-max) {
     .carousel {
+        margin: auto;
         margin-top: 50px;
-    }
-    .carousel {
-        overflow: visible;
     }
 }
 
@@ -33,11 +33,9 @@ $screen-md-max: ($screen-lg-min - 1);
     text-align: center;
     width: 100%;
     overflow: hidden;
-    margin: auto;
     white-space: nowrap;
     max-width: 100%;
     min-width: 320px;
-    margin-top:80px;
 }
 
 .slides {

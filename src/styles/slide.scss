@@ -15,6 +15,7 @@ $screen-md-max: ($screen-lg-min - 1);
     transition: transform 1s;
     background-position: top center;
     background-repeat: no-repeat;
+    background-color: #767676;
     line-height: 1;
 }
 
@@ -65,6 +66,7 @@ $screen-md-max: ($screen-lg-min - 1);
     }
     .slideText .slideSubHeader {
         font-size: 1em;
+        padding: 10px 0px;
     }
     .slideText .slideContent {
         font-size: 0.5em;
