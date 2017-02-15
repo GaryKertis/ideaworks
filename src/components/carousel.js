@@ -28,6 +28,7 @@ class Carousel extends Component {
   initialized = false;
   currentSlide = 1;
   timer = null;
+  transitioning = false;
 
   startTimer() {
     clearInterval(this.timer);
@@ -37,40 +38,55 @@ class Carousel extends Component {
   }
 
   moveForward() {
+    this.transitioning = true;
     var amount = 0; 
     if (this.currentSlide === 1) amount = "-100%";
     if (this.currentSlide === 2) amount = "-200%"
     if (this.currentSlide === 3) amount = "-300%";
     this.move(amount);
     this.currentSlide++;
-    //this.updateDots();
+    if (this.currentSlide > 3) {
+      this.currentSlide = 1;
+      this.forwardReset = true;
+    }
+    this.updateDots();
   }
 
   transitionDone() {
-    console.log('done');
+    this.transitioning = false;
     var el = this.refs.carousel;
-    if (this.currentSlide > 3) {
-      this.currentSlide = 1;
+    if (this.forwardReset) {
       el.childNodes[0].childNodes.forEach(node => {
         node.style.transition = "transform 0.0001s";
         node.style.transform = "translate(0px, 0px)"
       });
-    } else {
+      this.forwardReset = false;
+    } else if (this.backwardReset) {
       el.childNodes[0].childNodes.forEach(node => {
-        node.style.transition = "transform 1s";
+        node.style.transition = "transform 0.0001s";
+        node.style.transform = "translate(-200%, 0px)"
+      });
+      this.backwardReset = false;
+    } else {
+        el.childNodes[0].childNodes.forEach(node => {
+        node.style.transition = "transform 0.5s";
       });
     }
   };
 
   moveBackward() {
+    this.transitioning = true;
     var amount = 0; 
-    if (this.currentSlide === 1) amount = "-200%";
+    if (this.currentSlide === 1) amount = "100%";
     if (this.currentSlide === 2) amount = "0%"
     if (this.currentSlide === 3) amount = "-100%";
     this.move(amount);
     this.currentSlide--;
-    if (this.currentSlide < 1) this.currentSlide = 3;
-    //this.updateDots();
+    if (this.currentSlide < 1) {
+      this.backwardReset = true;
+      this.currentSlide = 3;
+    }
+    this.updateDots();
   }
 
   move(amount) {
@@ -114,8 +130,10 @@ class Carousel extends Component {
 
   handleClick(event) {
     event.preventDefault();
-    this.moveForward();
-    this.startTimer();
+    if (!this.transitioning) {
+      this.moveForward();
+      this.startTimer();
+    }
   }
 
   xDown = null;                                                        
@@ -135,12 +153,16 @@ class Carousel extends Component {
       var xDiff = this.xDown - xUp;
         if ( xDiff > 0 ) {
             /* left swipe */ 
-            this.moveForward();
-            this.startTimer();
+            if (!this.transitioning) {
+              this.moveForward();
+              this.startTimer();
+            }
         } else {
             /* right swipe */
-            this.moveBackward();
-            this.startTimer();
+            if (!this.transitioning) {
+              this.moveBackward();
+              this.startTimer();
+            }
         }                       
       /* reset values */
       this.xDown = null;
@@ -170,6 +192,7 @@ class Carousel extends Component {
     return (
       <div className="carousel" ref="carousel" onClick={this.handleClick} onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove}>
           <div className="slides">
+            <Slide model={text[2]}></Slide>
             <Slide model={text[0]}></Slide>
             <Slide model={text[1]}></Slide>
             <Slide model={text[2]}></Slide>
