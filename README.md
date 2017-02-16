@@ -7,7 +7,7 @@
 
 Notes:
 
-* I'm primarily an angular developer, I haven't done a lot with React. I found it fairly easy to learn, but I am sure I am not following best practices at this point. My goal was simply to produce a workable, extensible application that showcases organizational thinking and a fluency with javascript and CSS. 
+* I build this in React as requested, although the bulk of my experience has been in Angular. I found React fairly easy to learn, but I am sure I am not following best practices at this point. My goal was simply to produce a workable, extensible application that showcases organizational thinking and a fluency with javascript and CSS. 
 
 * The image supplied in the PSD does not have a separate text layer, so it wasn't usable for a responsive mock up. Instead of that image, I grabbed three images from the web. These are not optimized for web, they are just three random images. Load times might be a little long because of this.
 
